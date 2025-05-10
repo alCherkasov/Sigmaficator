@@ -1,4 +1,5 @@
 import { router } from '@app/router'
+import '@app/styles/scss/index.scss'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router'
