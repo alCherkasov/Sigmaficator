@@ -1,5 +1,5 @@
 import { createBrowserRouter, redirect } from 'react-router'
-import App from './app'
+import App from './App'
 
 export const router = createBrowserRouter([
 	{
