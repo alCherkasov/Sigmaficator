@@ -1,0 +1,44 @@
+@use './../../../app//styles/scss/mixins';
+
+.input {
+	padding: 10px 15px;
+
+	font-size: var(--font-size-m);
+
+	border: 2px solid var(--color-secondary);
+	border-radius: 30px;
+
+	&::placeholder {
+		font-size: var(--font-size-m);
+		color: var(--color-secondary);
+	}
+
+	&:focus {
+		border-color: var(--color-focus);
+		box-shadow: var(--shadow-focus);
+	}
+
+	@include mixins.hover {
+		box-shadow: var(--shadow-main);
+	}
+}
+
+.input-wrapper {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.error {
+	border: 2px solid var(--color-error);
+	box-shadow: var(--shadow-error);
+}
+
+.error-message {
+	position: absolute;
+	right: 0;
+	bottom: -18px;
+
+	font-size: var(--font-size-m);
+	color: var(--color-error);
+}

@@ -1,0 +1,11 @@
+.login-form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-l);
+}
+
+.inputs-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-s);
+}
