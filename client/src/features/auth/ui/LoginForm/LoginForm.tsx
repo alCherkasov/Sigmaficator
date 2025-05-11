@@ -2,8 +2,7 @@ import {
 	initialLoginFormState,
 	loginFormReducer,
 } from '@features/auth/model/loginFormReducer'
-import Button from '@shared/ui/Button/Button'
-import Input from '@shared/ui/Input/Input'
+import { Button, Input } from '@shared/ui'
 import { useReducer, type ChangeEvent, type FormEvent } from 'react'
 import styles from './LoginForm.module.scss'
 

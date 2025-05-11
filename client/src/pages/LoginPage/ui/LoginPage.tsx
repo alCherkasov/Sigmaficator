@@ -1,5 +1,5 @@
-import LoginForm from '@features/auth/ui/LoginForm/LoginForm'
-import Heading from '@shared/ui/Heading/Heading'
+import { LoginForm } from '@features/auth/ui/index'
+import { Heading } from '@shared/ui/index'
 import { Link } from 'react-router'
 import styles from './LoginPage.module.scss'
 
@@ -12,7 +12,7 @@ function LoginPage() {
 					<LoginForm />
 					<div className={styles['links']}>
 						<p>Нет учётной записи?</p>
-						<Link to={'/register'}>Зарегистрируйтесь</Link>
+						<Link to={'/register'}>Зарегистрироваться</Link>
 					</div>
 				</div>
 			</div>

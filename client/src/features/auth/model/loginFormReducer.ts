@@ -33,12 +33,12 @@ export function loginFormReducer(state: ILoginFormState, action: LoginFormAction
 			const name = action.payload.name
 			const value = state.values[name]
 
-			const validateFunctions = {
+			const validationFunctions = {
 				email: validateEmail,
 				password: validatePassword
 			}
 
-			const validate = validateFunctions[name]
+			const validate = validationFunctions[name]
 			const error = validate ? validate(value) : null
 			if(error) {
 				return {
