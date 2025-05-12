@@ -36,16 +36,38 @@ export interface IRegisterFormState {
 	isLoading: boolean,
 }
 
+export interface IAuthState {
+	token: string | null,
+	user: {
+		name: string | null,
+		email: string | null
+	},
+	isAuth: boolean
+}
+
+export interface ILoginData {
+	email: string,
+	password: string,
+}
+
+export interface IRegisterData extends ILoginData {
+	name: string
+}
+
+export interface IResponseData {
+	token: string
+	user: {
+		name: string,
+		email: string
+	}
+}
+
 export type LoginFormAction = 
-| {type: 'SUBMIT'}
-| {type: 'SUBMIT_END'}
 | {type: 'CLEAR'}
 | {type: 'UPDATE_FIELD', payload: {name: 'email' | 'password', value: string}}
 | {type: 'VALIDATE_FIELD', payload: {name: 'email' | 'password'}}
 
 export type RegisterFormAction = 
-| {type: 'SUBMIT'}
-| {type: 'SUBMIT_END'}
 | {type: 'CLEAR'}
 | {type: 'UPDATE_FIELD', payload: {name: 'name' | 'email' | 'password' | 'confirmedPassword', value: string}}
 | {type: 'VALIDATE_FIELD', payload: {name: 'name' | 'email' | 'password' | 'confirmedPassword'}}

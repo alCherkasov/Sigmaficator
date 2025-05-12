@@ -1,7 +1,14 @@
+import { useLoginUserMutation } from '@features/auth/api/auth.api'
+import { setCredentials } from '@features/auth/model/auth.slice'
 import {
 	initialLoginFormState,
 	loginFormReducer,
 } from '@features/auth/model/loginFormReducer'
+import {
+	validateEmail,
+	validatePassword,
+} from '@features/auth/model/validation'
+import { useAppDispatch } from '@shared/hooks/reduxHooks'
 import { Button, Input } from '@shared/ui'
 import { useReducer, type ChangeEvent, type FormEvent } from 'react'
 import styles from './LoginForm.module.scss'
@@ -11,16 +18,41 @@ export default function LoginForm() {
 		loginFormReducer,
 		initialLoginFormState
 	)
+	const [loginUser, { isLoading }] = useLoginUserMutation()
+	const dispatch = useAppDispatch()
 
-	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
 		const name = event.target.name as 'email' | 'password'
 		const value = event.target.value
 		dispatchForm({ type: 'UPDATE_FIELD', payload: { name, value } })
 		dispatchForm({ type: 'VALIDATE_FIELD', payload: { name } })
 	}
 
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (
+		event: FormEvent<HTMLFormElement>
+	): Promise<void> => {
 		event.preventDefault()
+
+		const { email, password } = formState.values
+
+		const emailError = validateEmail(email)
+		const passwordError = validatePassword(password)
+
+		const fields: (keyof typeof formState.values)[] = ['email', 'password']
+		for (const field of fields) {
+			dispatchForm({ type: 'VALIDATE_FIELD', payload: { name: field } })
+		}
+
+		if (emailError || passwordError) return
+
+		try {
+			const response = await loginUser(formState.values).unwrap()
+			dispatch(setCredentials({ ...response, isAuth: true }))
+		} catch (error) {
+			console.log(error)
+		} finally {
+			dispatchForm({ type: 'CLEAR' })
+		}
 	}
 
 	return (
@@ -42,7 +74,7 @@ export default function LoginForm() {
 					error={formState.errors.password}
 				/>
 			</div>
-			<Button disabled={formState.isLoading}>Войти</Button>
+			<Button disabled={isLoading}>Войти</Button>
 		</form>
 	)
 }

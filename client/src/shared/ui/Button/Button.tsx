@@ -1,3 +1,4 @@
+import cn from 'classnames'
 import type { ButtonProps } from './Button.interface.ts'
 import styles from './Button.module.scss'
 
@@ -6,10 +7,10 @@ export default function Button({
 	color = 'primary',
 	...props
 }: ButtonProps) {
-	const resultClass = `${styles['button']} ${styles[`${color}`]}`
+	const buttonClass = cn(styles['button'], styles[`${color}`])
 
 	return (
-		<button disabled={props.disabled} className={resultClass}>
+		<button disabled={props.disabled} className={buttonClass}>
 			{children}
 		</button>
 	)

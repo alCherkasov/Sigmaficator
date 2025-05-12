@@ -19,10 +19,6 @@ export const initialLoginFormState: ILoginFormState = {
 
 export function loginFormReducer(state: ILoginFormState, action: LoginFormAction): ILoginFormState {
 	switch(action.type) {
-		case 'SUBMIT': 
-			return {...state, values: state.values, isLoading: true}
-		case 'SUBMIT_END': 
-			return {...state, isLoading: false}
 		case 'CLEAR' : 
 			return initialLoginFormState
 		case 'UPDATE_FIELD': {
@@ -53,5 +49,7 @@ export function loginFormReducer(state: ILoginFormState, action: LoginFormAction
 				errors: {...state.errors, [name]: null}
 			}
 		}
+		default:
+			return state
 	}
 }

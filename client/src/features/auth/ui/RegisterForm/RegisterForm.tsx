@@ -1,7 +1,16 @@
+import { useRegisterUserMutation } from '@features/auth/api/auth.api'
+import { setCredentials } from '@features/auth/model/auth.slice'
 import {
 	initialRegisterFormState,
 	registerFormReducer,
 } from '@features/auth/model/registerFormReducer'
+import {
+	validateConfirmedPassword,
+	validateEmail,
+	validateName,
+	validatePassword,
+} from '@features/auth/model/validation'
+import { useAppDispatch } from '@shared/hooks/reduxHooks'
 import { Button, Input } from '@shared/ui'
 import { useReducer, type ChangeEvent, type FormEvent } from 'react'
 import styles from './RegisterForm.module.scss'
@@ -11,8 +20,10 @@ export default function RegisterForm() {
 		registerFormReducer,
 		initialRegisterFormState
 	)
+	const [registerUser, { isLoading }] = useRegisterUserMutation()
+	const dispatch = useAppDispatch()
 
-	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
 		const name = event.target.name as
 			| 'name'
 			| 'email'
@@ -23,8 +34,42 @@ export default function RegisterForm() {
 		dispatchForm({ type: 'VALIDATE_FIELD', payload: { name } })
 	}
 
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (
+		event: FormEvent<HTMLFormElement>
+	): Promise<void> => {
 		event.preventDefault()
+
+		const { name, email, password, confirmedPassword } = formState.values
+
+		const nameError = validateName(name)
+		const emailError = validateEmail(email)
+		const passworderror = validatePassword(password)
+		const confirmedPasswordError = validateConfirmedPassword(
+			password,
+			confirmedPassword
+		)
+
+		const fields: (keyof typeof formState.values)[] = [
+			'name',
+			'email',
+			'password',
+			'confirmedPassword',
+		]
+		for (const field of fields) {
+			dispatchForm({ type: 'VALIDATE_FIELD', payload: { name: field } })
+		}
+
+		if (nameError || emailError || passworderror || confirmedPasswordError)
+			return
+
+		try {
+			const response = await registerUser(formState.values).unwrap()
+			dispatch(setCredentials({ ...response, isAuth: true }))
+		} catch (error) {
+			console.log(error)
+		} finally {
+			dispatchForm({ type: 'CLEAR' })
+		}
 	}
 
 	return (
@@ -46,6 +91,7 @@ export default function RegisterForm() {
 				/>
 				<Input
 					name='password'
+					type='password'
 					placeholder='Введите пароль'
 					value={formState.values.password}
 					onChange={handleChange}
@@ -53,13 +99,14 @@ export default function RegisterForm() {
 				/>
 				<Input
 					name='confirmedPassword'
+					type='password'
 					placeholder='Подтвердите пароль'
 					value={formState.values.confirmedPassword}
 					onChange={handleChange}
 					error={formState.errors.confirmedPassword}
 				/>
 			</div>
-			<Button disabled={formState.isLoading}>Зарегистрироваться</Button>
+			<Button disabled={isLoading}>Зарегистрироваться</Button>
 		</form>
 	)
 }

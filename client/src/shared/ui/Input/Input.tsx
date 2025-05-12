@@ -1,15 +1,16 @@
+import cn from 'classnames'
 import type { InputProps } from './Input.interface'
 import styles from './Input.module.scss'
 
 export default function Input({ error = null, ...props }: InputProps) {
-	const resultClass = error
-		? `${styles['input']} ${styles['error']}`
-		: `${styles['input']}`
+	const inputClass = cn(styles['input'], {
+		[styles['error']]: error,
+	})
 
 	return (
 		<div className={styles['input-wrapper']}>
 			<input
-				className={resultClass}
+				className={inputClass}
 				type={props.type}
 				name={props.name}
 				placeholder={props.placeholder}

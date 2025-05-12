@@ -25,10 +25,6 @@ export const initialRegisterFormState: IRegisterFormState = {
 
 export function registerFormReducer(state: IRegisterFormState, action: RegisterFormAction): IRegisterFormState {
 	switch(action.type) {
-		case 'SUBMIT': 
-			return {...state, values: state.values, isLoading: true}
-		case 'SUBMIT_END':
-			return {...state, isLoading: false}
 		case 'CLEAR': 
 			return initialRegisterFormState
 		case 'UPDATE_FIELD': {
@@ -56,10 +52,12 @@ export function registerFormReducer(state: IRegisterFormState, action: RegisterF
 				}
 			}
 			return {
-					...state,
-					isValid: {...state.isValid, [name]: true},
-					errors: {...state.errors, [name]: null}
-				}
+				...state,
+				isValid: {...state.isValid, [name]: true},
+				errors: {...state.errors, [name]: null}
+			}
 		}
+		default:
+			return state
 	}
 }
