@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
 				hydrateFallbackElement: <div>Загрузка...</div>,
 			},
 			{
-				path: '/',
+				path: '/Sigmaficator',
 				loader: () => redirect('/login'),
 			},
 		],
