@@ -1,0 +1,80 @@
+.weight-card {
+	grid-column-start: 1;
+	grid-column-end: -1;
+	padding: 30px 15px;
+
+	border-radius: var(--border-rad-m);
+	background-color: var(--color-main);
+	box-shadow: var(--shadow-main);
+}
+
+.body {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-l);
+}
+
+.top-row {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xs);
+}
+
+.weight {
+	font-size: var(--font-size-xl);
+	font-weight: var(--font-weight-accent);
+}
+
+.progress-bar-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xxs);
+}
+
+.progress-bar {
+	width: 100%;
+	min-height: 7px;
+	overflow: hidden;
+
+	border-radius: var(--border-rad-m);
+	background-color: var(--color-main-hover);
+}
+
+.progress {
+	min-height: 7px;
+
+	border-radius: var(--border-rad-m);
+	background-color: var(--color-primary);
+}
+
+.weight-range {
+	display: flex;
+	justify-content: space-between;
+
+	font-weight: var(--font-weight-main);
+}
+
+.bottom-row {
+	display: flex;
+	justify-content: space-between;
+}
+
+.controls {
+	display: flex;
+	justify-content: space-between;
+	gap: var(--spacing-xxs);
+}
+
+.button-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: var(--spacing-xxs);
+}
+
+.button-tip {
+	font-size: var(--font-size-m);
+	font-weight: var(--font-weight-main);
+	color: var(--color-disabled);
+}

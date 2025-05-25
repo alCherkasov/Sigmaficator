@@ -8,9 +8,10 @@ import {
 	validateEmail,
 	validatePassword,
 } from '@features/auth/model/validation'
-import { useAppDispatch } from '@shared/hooks/reduxHooks'
+import { useAppDispatch } from '@shared/lib/hooks/reduxHooks'
 import { Button, Input } from '@shared/ui'
 import { useReducer, type ChangeEvent, type FormEvent } from 'react'
+import { useNavigate } from 'react-router'
 import styles from './LoginForm.module.scss'
 
 export default function LoginForm() {
@@ -20,6 +21,7 @@ export default function LoginForm() {
 	)
 	const [loginUser, { isLoading }] = useLoginUserMutation()
 	const dispatch = useAppDispatch()
+	const navigate = useNavigate()
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
 		const name = event.target.name as 'email' | 'password'
@@ -47,7 +49,11 @@ export default function LoginForm() {
 
 		try {
 			const response = await loginUser(formState.values).unwrap()
-			dispatch(setCredentials({ ...response, isAuth: true }))
+			if (response.token) {
+				console.log(response.token)
+				dispatch(setCredentials({ ...response, isAuth: true }))
+				navigate('/home/dashboard', { replace: true })
+			}
 		} catch (error) {
 			console.log(error)
 		} finally {

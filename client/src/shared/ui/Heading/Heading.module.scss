@@ -1,8 +1,3 @@
-.heading {
-	font-weight: var(--font-weight-accent);
-	color: var(--color-secondary);
-}
-
 .heading-size-xl {
 	font-size: var(--font-size-xl);
 }
@@ -21,4 +16,20 @@
 
 .heading-size-xs {
 	font-size: var(--font-size-xs);
+}
+
+.main {
+	color: var(--color-secondary);
+}
+
+.light {
+	color: var(--color-main);
+}
+
+.primary {
+	color: var(--color-primary);
+}
+
+.semibold {
+	font-weight: var(--font-weight-main);
 }

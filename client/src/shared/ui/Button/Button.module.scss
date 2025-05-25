@@ -1,7 +1,7 @@
 @use './../../../app//styles/scss/mixins';
 
 .button {
-	padding: 15px 30px;
+	padding: 15px 15px;
 
 	font-size: var(--font-size-m);
 	line-height: 1;
@@ -11,6 +11,15 @@
 	&:disabled {
 		cursor: not-allowed;
 	}
+}
+
+.round {
+	width: 50px;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 0;
 }
 
 .primary {
@@ -30,6 +39,10 @@
 
 	@include mixins.hover {
 		background-color: var(--color-primary-hover);
+
+		svg {
+			fill: var(--color-main);
+		}
 	}
 
 	&:disabled {
@@ -55,6 +68,11 @@
 
 	@include mixins.hover {
 		background-color: var(--color-main-hover);
+
+		svg {
+			fill: var(--color-primary);
+			transform: scale(0.9);
+		}
 	}
 
 	&:disabled {
@@ -83,6 +101,11 @@
 	@include mixins.hover {
 		color: var(--color-main);
 		background-color: var(--color-primary);
+
+		svg {
+			fill: var(--color-primary);
+			transform: scale(1.1);
+		}
 	}
 
 	&:disabled {

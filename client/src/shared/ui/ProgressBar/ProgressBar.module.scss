@@ -1,0 +1,33 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xxs);
+}
+
+.title {
+	align-self: self-start;
+
+	font-size: var(--font-size-m);
+}
+
+.progress-bar {
+	width: 100%;
+	height: 7px;
+
+	border-radius: var(--border-rad-xs);
+	background-color: var(--color-main-hover);
+}
+
+.progress {
+	background-color: var(--color-primary);
+	height: 7px;
+
+	border-radius: var(--border-rad-xs);
+	box-shadow: var(--shadow-primary);
+}
+
+.counter {
+	align-self: self-end;
+
+	font-size: var(--font-size-s);
+}

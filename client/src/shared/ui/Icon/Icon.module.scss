@@ -1,0 +1,12 @@
+.bell {
+	width: 20px;
+	height: 20px;
+	fill: var(--color-disabled);
+}
+
+.prev-arrow,
+.next-arrow {
+	width: 16px;
+	height: 25px;
+	fill: var(--color-main);
+}

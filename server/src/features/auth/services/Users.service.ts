@@ -22,16 +22,21 @@ export class UsersService implements IUsersService {
 		return this.usersRepository.create(newUser)
 	}
 
-	async findUser({email, password}: LoginDto): Promise<boolean> {
+	async findUser({email, password}: LoginDto): Promise<UserModel | null> {
 		const existedUser = await this.usersRepository.find(email)
-		if(!existedUser) return false
+		if(!existedUser) return null
 
 		const newUser = new User(
 			existedUser.name,
 			existedUser.email,
 			existedUser.password
 			)
-		return newUser.comparePassword(password)
+		
+		const comparedPaswword = await newUser.comparePassword(password)
+		if(comparedPaswword) {
+			return this.usersRepository.find(email)
+		}
+		return null
 	}
 
 	async getUserInfo(email: string): Promise<UserModel | null> {

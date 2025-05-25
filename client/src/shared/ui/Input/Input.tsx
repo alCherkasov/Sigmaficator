@@ -2,7 +2,7 @@ import cn from 'classnames'
 import type { InputProps } from './Input.interface'
 import styles from './Input.module.scss'
 
-export default function Input({ error = null, ...props }: InputProps) {
+export function Input({ error = null, ...props }: InputProps) {
 	const inputClass = cn(styles['input'], {
 		[styles['error']]: error,
 	})

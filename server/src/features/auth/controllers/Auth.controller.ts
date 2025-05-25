@@ -43,7 +43,13 @@ export class AuthController extends BaseController implements IAuthController {
 			return next(new HTTPError(401, 'Неверный логин или пароль'))
 		}
 		const jwt = await this.signJWT(body.email, process.env.SECRET!)
-		res.status(200).send({token: jwt})
+		res.status(200).send({
+			token: jwt,
+			user: {
+				name: result.name,
+				email: result.email
+			}
+		})
 	} 
 
 	async register({body}: Request<{}, {}, RegisterDto >, res: Response, next: NextFunction): Promise<void> {
@@ -52,7 +58,13 @@ export class AuthController extends BaseController implements IAuthController {
 			return next(new HTTPError(409, 'Пользователь уже существует'))
 		}
 		const jwt = await this.signJWT(result.email, process.env.SECRET!)
-		res.status(201).send({token: jwt})
+		res.status(201).send({
+			token: jwt,
+			user: {
+				name: result.name,
+				email: result.email
+			}
+		})
 	} 
 
 	async info({user}: Request, res: Response, next: NextFunction): Promise<void> {

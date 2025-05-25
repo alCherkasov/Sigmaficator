@@ -1,0 +1,12 @@
+.body {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.progress-bar-wrapper {
+	max-width: 135px;
+	width: 100%;
+	margin-bottom: 10px;
+}

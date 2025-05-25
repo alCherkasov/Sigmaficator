@@ -1,3 +1,4 @@
+import cors from 'cors'
 import 'dotenv/config'
 import express, { Express, json } from 'express'
 import { Server } from 'http'
@@ -43,6 +44,10 @@ export class App {
 		this.app.use(json())
 		const authMiddleware = new AuthMiddleware(process.env.SECRET as string)
 		this.app.use(authMiddleware.execute.bind(authMiddleware))
+		this.app.use(cors({
+			origin: 'http://localhost:5173',
+			credentials: true
+		}))
 	}
 
 	async init(): Promise<void> {

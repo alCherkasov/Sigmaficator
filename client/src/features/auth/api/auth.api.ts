@@ -3,7 +3,7 @@ import type { ILoginData, IRegisterData, IResponseData } from '../model/types'
 
 export const authApi = createApi({
 	reducerPath: 'authApi',
-	baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:8765'}),
+	baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:8765/auth'}),
 	endpoints: (builder) => ({
 		loginUser: builder.mutation<IResponseData, ILoginData>({
 			query: credentials => ({

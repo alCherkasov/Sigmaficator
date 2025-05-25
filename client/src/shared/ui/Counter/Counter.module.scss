@@ -1,0 +1,18 @@
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	// gap: var(--spacing-xxs);
+	margin-top: auto;
+}
+
+.counter {
+	font-size: var(--font-size-m);
+	// font-weight: var(--font-weight-accent);
+}
+
+.desc {
+	font-size: var(--font-size-m);
+	color: var(--color-disabled);
+}
